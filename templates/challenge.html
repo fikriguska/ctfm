@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<h3>{{challenge.name}} ({{challenge.score}} points)</h3>
+<h3>{{challenge.name}} [{{challenge.score}} points] {{ '(solved)' if challenge.id ~ '' in current_user.solved.split(',') else ''}}</h3>
 
 {{challenge.info | safe }}
 

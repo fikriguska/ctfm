@@ -3,28 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CTFm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Agrihack 0x04</title>
     <style>
         body{
-            background: #eee;
+            background: #2F2F2F;
             margin:1em auto;
             max-width:40em;
             padding:0 .62em;
             font:1.2em/1.62 monospace;
+            color: #FFF;
         }
         h1,h2,h3 { line-height:1.2; }
         .center { text-align: center; }
         .warn { background: red; }
-        a:visited { color: inherit; }
+        a{ color: green; }
+        /*a:visited { color: #FFF; }*/
         @media print{ body{ max-width:none } }
     </style>
 </head>
 <body>
     <div class="center">
-        <span><b>codepwnda</b></span>
+        <span><b>Agrihack 0x04</b></span>
         <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('challenges') }}">Challenges</a>
+        <a href="{{ url_for('notification') }}">Notification</a>
+        <a href="{{ url_for('category') }}">Challenges</a>
         <a href="{{ url_for('scoreboard') }}">Scoreboard</a>
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('logout') }}" class="warn">Log Out</a>
@@ -41,8 +44,7 @@
 </body>
 
 <p class=center>
-    Powered by <a href="https://github.com/andreafioraldi/motherfucking-ctf">motherfucking-ctf</a>
-    with 20-ish line of CSS.
+    Powered by <a href="https://github.com/andreafioraldi/motherfucking-ctf">motherfucking-ctf</a> & <a href="https://facebook.com/cysecipb"> Cyber Security IPB </a>
 </p>
 
 </html>

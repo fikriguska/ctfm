@@ -139,13 +139,34 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
+@app.route('/notification')
+def notification():
+    return render_template('notification.html')
+
+@app.route('/challenges/category')
+@login_required
+def category():
+    challenges = Challenges.query.all()
+    query = db.session.query(Challenges.category.distinct().label("category"))
+    categories = [row.category for row in query.all()]
+    return render_template('category.html', categories=categories)#, categories=categories)
+
+
+@app.route('/challenges/category/<category_name>',methods=["GET","POST"])
+@login_required
+def category_challenge(category_name):
+    category_challenge = Challenges.query.filter_by(category=category_name).all()
+    
+    return render_template('challenges.html',challenges=category_challenge )
+
 @app.route('/challenges')
 @login_required
 def challenges():
     challenges = Challenges.query.all()
-    #query = db.session.query(Challenges.category.distinct().label("category"))
-    #categories = [row.category for row in query.all()]
+    # query = db.session.query(Challenges.category.distinct().label("category"))
+    # categories = [row.category for row in query.all()]
     return render_template('challenges.html', challenges=challenges)#, categories=categories)
+
 
 @app.route('/scoreboard')
 @login_required
@@ -171,16 +192,16 @@ def challenge(challenge_name):
     if form.validate_on_submit() and challenge.flag == form.flag.data:
         user = User.query.filter_by(username=current_user.username).first()
         if str(challenge.id) in user.solved.split(","):
-            return "Ehi! You can't submit two times the same flag!"
+            return '<script>alert("Kamu udah pernah solve soal ini.")</script>'
         user.solved = user.solved + ',' + str(challenge.id)
         user.lastSubmit = datetime.datetime.utcnow()
         challenge.solves = str(int(challenge.solves) +1)
         ns = int(MAX_SCORE) - int(challenge.solves) // RATE_SCORE
         challenge.score = str(max(MIN_SCORE, ns))
         db.session.commit()
-        return "Well done, the flag is correct."
+        return '<script>alert("Flag Benar!")</script>'
     elif form.validate_on_submit() and challenge.flag != form.flag.data :
-        return 'Wrong Flag!'
+        return '<script>alert("Flag Salah!")</script>'
     
     return render_template('challenge.html',form=form, challenge=challenge )
 

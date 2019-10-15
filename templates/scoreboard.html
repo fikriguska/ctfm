@@ -13,20 +13,45 @@ th, td {
   padding-left: 15px;
   padding-right: 15px;
 }
+.color>tr:nth-child(n){
+  background: green;
+}
 </style>
-<table>
+<table class="color">
     <tr>
         <td>#</td>
         <td style="min-width: 80%;">Name</td>
         <td>Score</td>
     </tr>
-    {% for user in users %}
-    <tr>
+     {% for user in users %}
+      {% if(users.index(user)==0) %}
+    <tr style="background-color: green">
         <td>{{ users.index(user)+1 }}</td>
         <td>{{ user.nama }} ({{ user.nim }})</td>
         <td>{{ user_score(user) }}</td>
     </tr>
+      {% endif %}
     {% endfor %}
+    {% for user in users %}
+      {% if(users.index(user)==1) %}
+    <tr style="background-color: #DEC706">
+        <td>{{ users.index(user)+1 }}</td>
+        <td>{{ user.nama }} ({{ user.nim }})</td>
+        <td>{{ user_score(user) }}</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+    {% for user in users %}
+      {% if(users.index(user)==2) %}
+    <tr style="background-color: #D64400">
+        <td>{{ users.index(user)+1 }}</td>
+        <td>{{ user.nama }} ({{ user.nim }})</td>
+        <td>{{ user_score(user) }}</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+   
+
 </table>
 <form method="post" action="/"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /></form>
 {% endblock %}
