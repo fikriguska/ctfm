@@ -23,34 +23,24 @@ th, td {
         <td style="min-width: 80%;">Name</td>
         <td>Score</td>
     </tr>
-     {% for user in users %}
-      {% if(users.index(user)==0) %}
-    <tr style="background-color: green">
-        <td>{{ users.index(user)+1 }}</td>
-        <td>{{ user.nama }} ({{ user.nim }})</td>
-        <td>{{ user_score(user) }}</td>
-    </tr>
+   {% for user in users %}
+      {% if(users.index(user)<3) %}
+    <tr style="background-color: #41D600">
       {% endif %}
-    {% endfor %}
-    {% for user in users %}
-      {% if(users.index(user)==1) %}
-    <tr style="background-color: #DEC706">
+      {% if(users.index(user)>2 and users.index(user)<5) %}
+    <tr style="background-color: #B6D600">
+      {% endif %}
+      {% if(users.index(user)>4 and users.index(user)<10) %}
+    <tr style="background-color: #D6CC00">
+      {% endif %}
+      {% if(users.index(user)>9) %}
+    <tr style="background-color: #7C7C7C">
+      {% endif %}
         <td>{{ users.index(user)+1 }}</td>
         <td>{{ user.nama }} ({{ user.nim }})</td>
         <td>{{ user_score(user) }}</td>
-    {% endif %}
     </tr>
     {% endfor %}
-    {% for user in users %}
-      {% if(users.index(user)==2) %}
-    <tr style="background-color: #D64400">
-        <td>{{ users.index(user)+1 }}</td>
-        <td>{{ user.nama }} ({{ user.nim }})</td>
-        <td>{{ user_score(user) }}</td>
-    {% endif %}
-    </tr>
-    {% endfor %}
-   
 
 </table>
 <form method="post" action="/"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /></form>
